@@ -71,9 +71,14 @@ The application will be available at [http://localhost:3000](http://localhost:30
 This project uses NextAuth.js for authentication. To set up authentication:
 
 1. Create and add to your `.env`:
-   - AUTH_SECRET - some secret string for auth
-   - DATABASE_URL, DIRECT_URL - comes from supabase
-   - GEMINI_API_KEY - gemini api key 
+
+   - AUTH_SECRET - Secret string for auth
+   - DATABASE_URL, DIRECT_URL - PostgreSQL connection strings from Supabase
+   - GEMINI_API_KEY - API key for Gemini AI integration
+
+## Environment Variables
+
+All environment variables listed in the `.env.example` file are required for the application to run properly. Make sure to set them up before starting the application.
 
 2. Set up provider credentials if using OAuth providers (Credentials by default).
 
