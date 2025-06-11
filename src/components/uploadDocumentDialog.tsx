@@ -12,17 +12,20 @@ import {
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Upload, FileText, X } from "lucide-react";
+import { toast } from "sonner";
 
 type Props = {
   accountId: string;
   children: React.ReactNode;
   onUploadSuccess?: () => void; // Add callback for successful uploads
+  revalidate: () => void; // Function to revalidate data after upload
 };
 
 export function UploadDocumentDialog({
   accountId,
   children,
   onUploadSuccess,
+  revalidate,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -91,6 +94,8 @@ export function UploadDocumentDialog({
       }
 
       // Notify parent component of successful upload
+      void revalidate();
+      toast.success("Document uploaded successfully");
       if (onUploadSuccess) {
         onUploadSuccess();
       }

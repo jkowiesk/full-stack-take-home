@@ -30,7 +30,7 @@ export function NavMenu() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href="chatai" className="flex w-full items-center">
+          <Link href="chat-ai" className="flex w-full items-center">
             <MessageSquare className="mr-2 h-4 w-4" />
             ChatAI
           </Link>

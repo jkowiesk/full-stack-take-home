@@ -24,7 +24,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { MoreHorizontal, Trash2, Eye, Plus } from "lucide-react";
+import { MoreHorizontal, Trash2, Eye, Plus, Settings } from "lucide-react";
 import { CreateAccountDialog } from "./createAccountDialog";
 import { api } from "~/trpc/react";
 import { deleteAccount } from "~/actions/account";
@@ -124,7 +124,7 @@ export default function AccountsTableCard({ accounts }: Props) {
                             variant="ghost"
                             className="h-8 w-8 cursor-pointer p-0"
                           >
-                            <MoreHorizontal className="h-4 w-4" />
+                            <Settings className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">

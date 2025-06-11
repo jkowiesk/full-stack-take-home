@@ -223,11 +223,14 @@ export function WorkflowPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
-              Select Documents to Compare
+              Choose Documents for Comparison
             </CardTitle>
             <CardDescription>
-              Choose documents from {selectedAccount?.name} to run the policy
-              comparison workflow
+              Select files from{" "}
+              <span className="text-primary font-semibold">
+                {selectedAccount?.name}
+              </span>{" "}
+              to execute the policy comparison analysis
             </CardDescription>
           </CardHeader>
           <CardContent className="max-h-96 space-y-3 overflow-y-auto">

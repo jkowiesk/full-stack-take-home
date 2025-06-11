@@ -78,7 +78,7 @@ async function main() {
     where: { createdById: demoUser.id },
   });
 
-  // Create sample documents for each account with PDF content
+  // Create sample documents for each account with PDF content - only PDF files
   const documentData = [
     // Acme Corporation documents
     {
@@ -103,13 +103,12 @@ async function main() {
     },
     // TechStart Solutions documents
     {
-      filename: "proposal_web_dev.docx",
-      originalName: "Web Development Proposal.docx",
+      filename: "proposal_web_dev.pdf",
+      originalName: "Web Development Proposal.pdf",
       fileSize: 423680,
-      mimeType:
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      filePath: "/uploads/documents/proposal_web_dev.docx",
-      content: pdfContent, // Using same content even for non-PDF files for demo
+      mimeType: "application/pdf",
+      filePath: "/uploads/documents/proposal_web_dev.pdf",
+      content: pdfContent,
       accountId: createdAccounts[1]!.id,
       uploadedById: demoUser.id,
     },
@@ -125,13 +124,12 @@ async function main() {
     },
     // Global Enterprises documents
     {
-      filename: "quarterly_report_q1.xlsx",
-      originalName: "Q1 2024 Quarterly Report.xlsx",
+      filename: "quarterly_report_q1.pdf",
+      originalName: "Q1 2024 Quarterly Report.pdf",
       fileSize: 678400,
-      mimeType:
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      filePath: "/uploads/documents/quarterly_report_q1.xlsx",
-      content: pdfContent, // Using same content even for non-PDF files for demo
+      mimeType: "application/pdf",
+      filePath: "/uploads/documents/quarterly_report_q1.pdf",
+      content: pdfContent,
       accountId: createdAccounts[2]!.id,
       uploadedById: demoUser.id,
     },
@@ -157,12 +155,12 @@ async function main() {
       uploadedById: demoUser.id,
     },
     {
-      filename: "project_timeline.png",
-      originalName: "Project Timeline Chart.png",
+      filename: "project_timeline.pdf",
+      originalName: "Project Timeline Chart.pdf",
       fileSize: 289440,
-      mimeType: "image/png",
-      filePath: "/uploads/documents/project_timeline.png",
-      content: pdfContent, // Using same content even for non-PDF files for demo
+      mimeType: "application/pdf",
+      filePath: "/uploads/documents/project_timeline.pdf",
+      content: pdfContent,
       accountId: createdAccounts[3]!.id,
       uploadedById: demoUser.id,
     },
@@ -208,7 +206,7 @@ async function main() {
   console.log(`   - 1 demo user created (demo@gmail.com / demo)`);
   console.log(`   - ${userAccounts.count} user accounts created`);
   console.log(
-    `   - ${documents.count} sample documents created${pdfContent ? " with PDF content" : " without content"}`,
+    `   - ${documents.count} sample PDF documents created${pdfContent ? " with PDF content" : " without content"}`,
   );
   console.log(`   - 1 OAuth account created`);
   console.log(`   - 1 demo session created`);

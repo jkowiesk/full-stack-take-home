@@ -28,10 +28,10 @@ import { Badge } from "./ui/badge";
 import {
   FileText,
   Search,
-  MoreHorizontal,
   Download,
   Trash2,
   Upload,
+  Settings,
 } from "lucide-react";
 import { useState } from "react";
 import { UploadDocumentDialog } from "~/components/uploadDocumentDialog";
@@ -74,8 +74,12 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
       <Card className="mt-4 text-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>Documents for {accountName}</CardTitle>
+            <CardTitle>
+              Documents for{" "}
+              <span className="text-primary font-semibold">{accountName}</span>
+            </CardTitle>
             <UploadDocumentDialog
+              revalidate={refetch}
               accountId={accountId}
               onUploadSuccess={() => {
                 console.log("Document uploaded successfully");
@@ -88,7 +92,7 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
             </UploadDocumentDialog>
           </div>
           <CardDescription>
-            Documents associated with this account
+            Files and documents uploaded for this account
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -104,8 +108,12 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
     <Card className="text-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>Documents for {accountName}</CardTitle>
+          <CardTitle>
+            Documents for{" "}
+            <span className="text-primary font-semibold">{accountName}</span>
+          </CardTitle>
           <UploadDocumentDialog
+            revalidate={refetch}
             accountId={accountId}
             onUploadSuccess={() => {
               console.log("Document uploaded successfully");
@@ -118,7 +126,7 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
           </UploadDocumentDialog>
         </div>
         <CardDescription>
-          Documents associated with this account
+          Files and documents uploaded for this account
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -155,7 +163,7 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
                         variant="ghost"
                         className="h-8 w-8 cursor-pointer p-0"
                       >
-                        <MoreHorizontal className="h-4 w-4" />
+                        <Settings className="h-4 w-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
