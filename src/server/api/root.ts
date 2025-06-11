@@ -1,3 +1,4 @@
+import { documentRouter } from "~/server/api/routers/document";
 import { postRouter } from "~/server/api/routers/post";
 import { userRouter } from "~/server/api/routers/user";
 import { userAccountRouter } from "~/server/api/routers/userAccount";
@@ -12,6 +13,7 @@ export const appRouter = createTRPCRouter({
   post: postRouter,
   user: userRouter,
   userAccount: userAccountRouter,
+  document: documentRouter,
 });
 
 // export type definition of API

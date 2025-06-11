@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AccountsCombobox } from "~/components/AccountsCombobox";
+import DocumentsCard from "~/components/documentsCard";
 import {
   Card,
   CardContent,
@@ -25,40 +26,57 @@ export default function HomePage() {
 
   const currentAccount = accounts.find(
     (account) => account.id === selectedAccount,
-  )!;
+  ) ?? {
+    id: "",
+    name: "No account selected",
+    email: "N/A",
+    location: "N/A",
+    createdAt: new Date(),
+  };
 
   return (
-    <Card className="text-sm">
-      <CardHeader>
-        <CardTitle>
-          <div className="flex items-baseline gap-4">
-            Selected Account
-            <AccountsCombobox
-              accounts={accounts}
-              selectedAccountId={selectedAccount}
-              onAccountSelect={(accountId) => {
-                setSelectedAccount(accountId);
-              }}
-            />
+    <>
+      <Card className="text-sm">
+        <CardHeader>
+          <CardTitle>
+            <div className="flex items-baseline gap-4">
+              Selected Account
+              <AccountsCombobox
+                accounts={accounts}
+                selectedAccountId={selectedAccount}
+                onAccountSelect={(accountId) => {
+                  setSelectedAccount(accountId);
+                }}
+              />
+            </div>
+          </CardTitle>
+          <CardDescription>
+            Currently viewing data for this account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-2 text-sm">
+            <p className="text-sm">
+              <span className="font-semibold">Account Name: </span>
+              {currentAccount.name}
+            </p>
+            {/* add email */}
+            <p className="text-sm">
+              <span className="font-semibold">Email: </span>
+              {currentAccount.email}
+            </p>
+            <p className="text-sm">
+              <span className="font-semibold">Location: </span>
+              {currentAccount.location}
+            </p>
           </div>
-        </CardTitle>
-        <CardDescription>
-          Currently viewing data for this account
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="flex flex-col gap-2 text-sm">
-          <p className="text-sm">
-            <span className="font-semibold">Account Name: </span>
-            {currentAccount.name}
-          </p>
-          {/* add location */}
-          <p className="text-sm">
-            <span className="font-semibold">Location: </span>
-            {currentAccount.location}
-          </p>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+
+      <DocumentsCard
+        accountId={currentAccount.id}
+        accountName={currentAccount.name}
+      />
+    </>
   );
 }

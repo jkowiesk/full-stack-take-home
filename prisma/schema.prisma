@@ -38,10 +38,11 @@ model UserAccount {
     @@index([createdById])
 }
 
-// Document management
+// Document management its pdf
 model Document {
     id          String   @id @default(cuid())
     filename    String
+    content     String?  @db.Text
     originalName String
     fileSize    Int
     mimeType    String

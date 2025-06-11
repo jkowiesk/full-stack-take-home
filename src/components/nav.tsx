@@ -7,7 +7,7 @@ export default async function Nav() {
   return (
     <nav className="border-border flex h-16 items-center justify-between border-2 px-4 shadow-lg">
       <Link href="/" className="text-lg font-bold text-white">
-        MyApp
+        User Portal
       </Link>
       <div>
         {seassion?.user ? (
