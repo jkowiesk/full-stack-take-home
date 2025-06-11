@@ -12,6 +12,10 @@ This project uses the following technologies:
 - [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS framework
 - [Radix UI](https://www.radix-ui.com/) - Unstyled, accessible UI components
 - [TypeScript](https://www.typescriptlang.org/) - Static typing for JavaScript
+- [tRPC](https://trpc.io) - Type-safe API routes
+- [Zod](https://zod.dev) - Type validation library
+- [pnpm](https://pnpm.io) - Fast, disk space-efficient package manager
+- [PostgreSQL](https://www.postgresql.org) - Relational database management system
 
 ## Getting Started
 
@@ -88,6 +92,7 @@ The project follows the standard Next.js structure with:
 
 - `/prisma` - Database schema and migrations
 - `/public` - Static assets
+- `/styles/globals.css` - Global styles and Tailwind configuration
 
 ## Deployment
 
