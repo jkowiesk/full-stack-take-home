@@ -74,7 +74,7 @@ async function main() {
       fileSize: 245760,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/contract_2024_001.pdf",
-      accountId: createdAccounts[0].id,
+      accountId: createdAccounts[0]!.id,
       uploadedById: demoUser.id,
     },
     {
@@ -83,7 +83,7 @@ async function main() {
       fileSize: 156320,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/invoice_jan_2024.pdf",
-      accountId: createdAccounts[0].id,
+      accountId: createdAccounts[0]!.id,
       uploadedById: demoUser.id,
     },
     // TechStart Solutions documents
@@ -94,7 +94,7 @@ async function main() {
       mimeType:
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       filePath: "/uploads/documents/proposal_web_dev.docx",
-      accountId: createdAccounts[1].id,
+      accountId: createdAccounts[1]!.id,
       uploadedById: demoUser.id,
     },
     {
@@ -103,7 +103,7 @@ async function main() {
       fileSize: 892160,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/tech_specs.pdf",
-      accountId: createdAccounts[1].id,
+      accountId: createdAccounts[1]!.id,
       uploadedById: demoUser.id,
     },
     // Global Enterprises documents
@@ -114,7 +114,7 @@ async function main() {
       mimeType:
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       filePath: "/uploads/documents/quarterly_report_q1.xlsx",
-      accountId: createdAccounts[2].id,
+      accountId: createdAccounts[2]!.id,
       uploadedById: demoUser.id,
     },
     {
@@ -123,7 +123,7 @@ async function main() {
       fileSize: 334560,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/budget_analysis.pdf",
-      accountId: createdAccounts[2].id,
+      accountId: createdAccounts[2]!.id,
       uploadedById: demoUser.id,
     },
     // Green Energy Co documents
@@ -133,7 +133,7 @@ async function main() {
       fileSize: 1245760,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/environmental_impact.pdf",
-      accountId: createdAccounts[3].id,
+      accountId: createdAccounts[3]!.id,
       uploadedById: demoUser.id,
     },
     {
@@ -142,7 +142,7 @@ async function main() {
       fileSize: 289440,
       mimeType: "image/png",
       filePath: "/uploads/documents/project_timeline.png",
-      accountId: createdAccounts[3].id,
+      accountId: createdAccounts[3]!.id,
       uploadedById: demoUser.id,
     },
   ];

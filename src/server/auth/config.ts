@@ -47,16 +47,32 @@ export const authConfig = {
           return null;
         }
 
-        const { email, password } = credentials;
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
         console.log("Credentials:", { email, password });
 
-        const user = await api.user.getUserByEmail({ email });
+        const user = await db.user.findUnique({
+          where: { email },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            password: true,
+          },
+        });
 
-        if (user) {
+        const bcrypt = (await import("bcrypt")).default;
+        const isValid =
+          user && (await bcrypt.compare(password, user.password!));
+
+        if (isValid) {
           console.log("Returned user:", user);
           return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
+
           return null;
 
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
