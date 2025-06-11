@@ -8,6 +8,7 @@ import Nav from "~/components/nav";
 import { Toaster } from "~/components/ui/sonner";
 
 import { ThemeProvider } from "~/components/theme-provider";
+import { TooltipProvider } from "~/components/ui/tooltip";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -32,9 +33,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Nav />
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-          <Toaster />
+          <TooltipProvider>
+            <Nav />
+            <TRPCReactProvider>{children}</TRPCReactProvider>
+            <Toaster />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

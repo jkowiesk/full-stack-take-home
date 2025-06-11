@@ -26,7 +26,7 @@ type Props = {
   selectedAccountId?: string;
 };
 
-export function AccountsCombobox({
+export default function AccountsCombobox({
   accounts,
   onAccountSelect,
   selectedAccountId,

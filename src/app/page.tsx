@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { Suspense } from "react";
 
-import { LatestPost } from "~/components/post";
 import Spinner from "~/components/spinner";
-import HomePage from "~/pages/homepage";
+import HomePage from "~/components/pages/homepage";
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 

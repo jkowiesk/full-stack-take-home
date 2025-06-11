@@ -127,12 +127,12 @@ export default function AccountsTableCard({ accounts }: Props) {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem asChild>
+                          {/* <DropdownMenuItem asChild>
                             <Link href={`/accounts/${account.id}`}>
                               <Eye className="mr-2 h-4 w-4" />
                               View Details
                             </Link>
-                          </DropdownMenuItem>
+                          </DropdownMenuItem> */}
                           <DropdownMenuItem
                             className="text-red-600"
                             onClick={() => handleDelete(account.id)}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auth } from "~/server/auth";
+import { NavMenu } from "./navMenu";
 
 export default async function Nav() {
   const seassion = await auth();
@@ -11,7 +12,7 @@ export default async function Nav() {
       </Link>
       <div>
         {seassion?.user ? (
-          <span className="text-white">Welcome, {seassion.user.name}</span>
+          <NavMenu />
         ) : (
           <Link href="/api/auth/signin" className="text-white">
             Sign In
