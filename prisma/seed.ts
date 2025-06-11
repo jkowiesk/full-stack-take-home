@@ -1,12 +1,25 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import fs from "fs";
+import path from "path";
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log("🌱 Starting database seeding...");
 
-  // Create demo user
+  // Read PDF content from test.pdf file
+  let pdfContent = null;
+  try {
+    const pdfPath = path.join(process.cwd(), "prisma", "test.pdf");
+    const pdfBuffer = fs.readFileSync(pdfPath);
+    pdfContent = pdfBuffer.toString("base64"); // Store as base64 for binary data
+    console.log("✅ PDF content loaded from test.pdf");
+  } catch (error) {
+    console.warn("⚠️ Could not read test.pdf file:", error);
+    console.warn("   Documents will be created without content");
+  }
+
   const hashedPassword = await bcrypt.hash("demo", 10);
 
   const demoUser = await prisma.user.create({
@@ -65,7 +78,7 @@ async function main() {
     where: { createdById: demoUser.id },
   });
 
-  // Create sample documents for each account
+  // Create sample documents for each account with PDF content
   const documentData = [
     // Acme Corporation documents
     {
@@ -74,6 +87,7 @@ async function main() {
       fileSize: 245760,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/contract_2024_001.pdf",
+      content: pdfContent,
       accountId: createdAccounts[0]!.id,
       uploadedById: demoUser.id,
     },
@@ -83,6 +97,7 @@ async function main() {
       fileSize: 156320,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/invoice_jan_2024.pdf",
+      content: pdfContent,
       accountId: createdAccounts[0]!.id,
       uploadedById: demoUser.id,
     },
@@ -94,6 +109,7 @@ async function main() {
       mimeType:
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       filePath: "/uploads/documents/proposal_web_dev.docx",
+      content: pdfContent, // Using same content even for non-PDF files for demo
       accountId: createdAccounts[1]!.id,
       uploadedById: demoUser.id,
     },
@@ -103,6 +119,7 @@ async function main() {
       fileSize: 892160,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/tech_specs.pdf",
+      content: pdfContent,
       accountId: createdAccounts[1]!.id,
       uploadedById: demoUser.id,
     },
@@ -114,6 +131,7 @@ async function main() {
       mimeType:
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       filePath: "/uploads/documents/quarterly_report_q1.xlsx",
+      content: pdfContent, // Using same content even for non-PDF files for demo
       accountId: createdAccounts[2]!.id,
       uploadedById: demoUser.id,
     },
@@ -123,6 +141,7 @@ async function main() {
       fileSize: 334560,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/budget_analysis.pdf",
+      content: pdfContent,
       accountId: createdAccounts[2]!.id,
       uploadedById: demoUser.id,
     },
@@ -133,6 +152,7 @@ async function main() {
       fileSize: 1245760,
       mimeType: "application/pdf",
       filePath: "/uploads/documents/environmental_impact.pdf",
+      content: pdfContent,
       accountId: createdAccounts[3]!.id,
       uploadedById: demoUser.id,
     },
@@ -142,6 +162,7 @@ async function main() {
       fileSize: 289440,
       mimeType: "image/png",
       filePath: "/uploads/documents/project_timeline.png",
+      content: pdfContent, // Using same content even for non-PDF files for demo
       accountId: createdAccounts[3]!.id,
       uploadedById: demoUser.id,
     },
@@ -186,7 +207,9 @@ async function main() {
   console.log("📊 Summary:");
   console.log(`   - 1 demo user created (demo@gmail.com / demo)`);
   console.log(`   - ${userAccounts.count} user accounts created`);
-  console.log(`   - ${documents.count} sample documents created`);
+  console.log(
+    `   - ${documents.count} sample documents created${pdfContent ? " with PDF content" : " without content"}`,
+  );
   console.log(`   - 1 OAuth account created`);
   console.log(`   - 1 demo session created`);
 

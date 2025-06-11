@@ -36,6 +36,8 @@ import {
 import { useState } from "react";
 import { UploadDocumentDialog } from "~/components/uploadDocumentDialog";
 import { DocumentViewer } from "./ui/documentViewer";
+import { toast } from "sonner";
+import { parseFileSize } from "~/lib/utils";
 
 type Props = {
   accountId: string;
@@ -57,6 +59,7 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
       {
         onSuccess: () => {
           void refetch();
+          toast.success("Document deleted successfully");
         },
       },
     );
@@ -78,7 +81,7 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
                 console.log("Document uploaded successfully");
               }}
             >
-              <Button className="flex items-center gap-2">
+              <Button className="flex cursor-pointer items-center gap-2">
                 <Upload className="h-4 w-4" />
                 Upload File
               </Button>
@@ -124,6 +127,7 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
             <TableRow>
               <TableHead>File Name</TableHead>
               <TableHead>Size</TableHead>
+              <TableHead>Type</TableHead>
               <TableHead>Uploaded</TableHead>
               <TableHead className="w-[100px]">Actions</TableHead>
             </TableRow>
@@ -137,7 +141,10 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
                     <span className="font-medium">{document.originalName}</span>
                   </div>
                 </TableCell>
-                <TableCell>{document.fileSize}</TableCell>
+                <TableCell>{parseFileSize(document.fileSize)}</TableCell>
+                <TableCell>
+                  <Badge className="capitalize">{document.mimeType}</Badge>
+                </TableCell>
                 <TableCell>
                   {new Date(document.uploadedAt).toLocaleDateString()}
                 </TableCell>
@@ -149,19 +156,18 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>
-                        <Download className="mr-2 h-4 w-4" />
-                        Download
-                      </DropdownMenuItem>
                       <DropdownMenuItem
-                        className="text-red-600"
+                        className="text-red-600 hover:!text-red-600"
                         onClick={() => document.id && handleDelete(document.id)}
                       >
                         <Trash2 className="mr-2 h-4 w-4" />
                         Delete
                       </DropdownMenuItem>
                       <DocumentViewer documentId={document.id}>
-                        <Button variant="ghost" className="w-full text-left">
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start text-left"
+                        >
                           <Search className="mr-2 h-4 w-4" />
                           View
                         </Button>

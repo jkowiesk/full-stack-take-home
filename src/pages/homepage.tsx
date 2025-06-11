@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AccountsCombobox } from "~/components/AccountsCombobox";
+import { AccountsCombobox } from "~/components/accountsCombobox";
 import DocumentsCard from "~/components/documentsCard";
 import {
   Card,
@@ -12,10 +13,6 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { api } from "~/trpc/react";
-
-const formatDate = (date: Date) => {
-  return date.toISOString().split("T")[0];
-};
 
 export default function HomePage() {
   const [accounts] = api.userAccount.getAllUserAccounts.useSuspenseQuery();
@@ -39,15 +36,20 @@ export default function HomePage() {
       <Card className="text-sm">
         <CardHeader>
           <CardTitle>
-            <div className="flex items-baseline gap-4">
-              Selected Account
-              <AccountsCombobox
-                accounts={accounts}
-                selectedAccountId={selectedAccount}
-                onAccountSelect={(accountId) => {
-                  setSelectedAccount(accountId);
-                }}
-              />
+            <div className="flex items-center justify-between">
+              <div className="flex items-baseline gap-4">
+                Selected Account
+                <AccountsCombobox
+                  accounts={accounts}
+                  selectedAccountId={selectedAccount}
+                  onAccountSelect={(accountId) => {
+                    setSelectedAccount(accountId);
+                  }}
+                />
+              </div>
+              <Link href="/accounts" className="text-blue-500 hover:underline">
+                Manage All Accounts
+              </Link>
             </div>
           </CardTitle>
           <CardDescription>

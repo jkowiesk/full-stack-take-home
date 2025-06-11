@@ -96,6 +96,7 @@ export const documentRouter = createTRPCRouter({
           filename: true,
           originalName: true,
           content: true,
+          fileSize: true,
           uploadedAt: true,
         },
       });

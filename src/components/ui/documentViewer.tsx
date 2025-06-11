@@ -11,6 +11,7 @@ import {
 } from "~/components/ui/dialog";
 import { Button } from "~/components/ui/button";
 import { FileText, Download, Loader2 } from "lucide-react";
+import { parseFileSize } from "~/lib/utils";
 
 type Props = {
   documentId: string;
@@ -32,8 +33,8 @@ export function DocumentViewer({ documentId, children }: Props) {
 
   // Create PDF URL when document data is available
   useEffect(() => {
-    if (document?.content && !pdfUrl) {
-      createPdfUrl(document.content);
+    if (document?.content && typeof document.content === "string" && !pdfUrl) {
+      createPdfUrl(document.content as string);
     }
   }, [document?.content, pdfUrl]);
 
@@ -49,7 +50,7 @@ export function DocumentViewer({ documentId, children }: Props) {
 
       // Convert base64 to blob URL
       const base64Data = base64Content.includes(",")
-        ? base64Content.split(",")[1]
+        ? base64Content.split(",")[1]!
         : base64Content;
 
       console.log("Base64 data length:", base64Data.length);
@@ -76,9 +77,16 @@ export function DocumentViewer({ documentId, children }: Props) {
     if (!document?.content) return;
 
     try {
-      const base64Data = document.content.includes(",")
-        ? document.content.split(",")[1]
-        : document.content;
+      const content = document?.content;
+      const base64Data =
+        content && typeof content === "string" && content.includes(",")
+          ? content.split(",")[1]
+          : content;
+
+      if (!base64Data || typeof base64Data !== "string") {
+        console.error("No valid base64 data available");
+        return;
+      }
 
       const binaryString = atob(base64Data);
       const bytes = new Uint8Array(binaryString.length);
@@ -121,7 +129,7 @@ export function DocumentViewer({ documentId, children }: Props) {
           <div className="flex items-center justify-between">
             <DialogTitle className="flex items-center gap-2">
               <FileText className="h-5 w-5" />
-              {document?.originalName || "Document Viewer"}
+              {document?.originalName ?? "Document Viewer"}
             </DialogTitle>
             <div className="flex gap-2">
               <Button
@@ -186,7 +194,11 @@ export function DocumentViewer({ documentId, children }: Props) {
               Uploaded: {new Date(document.uploadedAt).toLocaleDateString()}
             </span>
             <span>
-              Size: {(document.content?.length || 0).toLocaleString()} bytes
+              Size:{" "}
+              {document?.content && typeof document.content === "string"
+                ? parseFileSize(document.fileSize)
+                : "0"}{" "}
+              bytes
             </span>
           </div>
         )}
