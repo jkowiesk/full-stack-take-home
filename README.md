@@ -16,6 +16,7 @@ This project uses the following technologies:
 - [Zod](https://zod.dev) - Type validation library
 - [pnpm](https://pnpm.io) - Fast, disk space-efficient package manager
 - [PostgreSQL](https://www.postgresql.org) - Relational database management system
+- [Supabase](https://supabase.com) - Open source Firebase alternative with PostgreSQL database, authentication, and storage
 
 ## Getting Started
 
@@ -65,19 +66,16 @@ The application will be available at [http://localhost:3000](http://localhost:30
 - `pnpm format:check` - Check code formatting
 - `pnpm format:write` - Format code
 
-## Authentication
+## Authentication and env
 
 This project uses NextAuth.js for authentication. To set up authentication:
 
-1. Generate an authentication secret:
+1. Create and add to your `.env`:
+   - AUTH_SECRET - some secret string for auth
+   - DATABASE_URL, DIRECT_URL - comes from supabase
+   - GEMINI_API_KEY - gemini api key 
 
-   ```bash
-   pnpm generate:secret
-   ```
-
-2. Add the generated secret to your `.env` file as `AUTH_SECRET`.
-
-3. Set up provider credentials if using OAuth providers (Credentials by default).
+2. Set up provider credentials if using OAuth providers (Credentials by default).
 
 ## Project Structure
 
