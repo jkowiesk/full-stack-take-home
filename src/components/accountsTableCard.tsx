@@ -25,8 +25,10 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { MoreHorizontal, Trash2, Eye, Plus } from "lucide-react";
-import Link from "next/link";
 import { CreateAccountDialog } from "./createAccountDialog";
+import { api } from "~/trpc/react";
+import { deleteAccount } from "~/actions/account";
+import { toast } from "sonner";
 
 type Props = {
   accounts: UserAccount[];
@@ -36,20 +38,16 @@ export default function AccountsTableCard({ accounts }: Props) {
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this account?")) return;
-
     setDeletingId(id);
     try {
-      // Replace with your actual delete function
-      // await deleteAccount(id);
-      console.log("Deleting account:", id);
-      // For now, just simulate the delete
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await deleteAccount(id);
     } catch (error) {
       alert("Failed to delete account");
       console.error("Delete error:", error);
+      toast.error("Failed to delete account");
     } finally {
       setDeletingId(null);
+      toast.success("Account deleted successfully");
     }
   };
 
@@ -122,7 +120,10 @@ export default function AccountsTableCard({ accounts }: Props) {
                     <TableCell>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" className="h-8 w-8 p-0">
+                          <Button
+                            variant="ghost"
+                            className="h-8 w-8 cursor-pointer p-0"
+                          >
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
@@ -134,7 +135,7 @@ export default function AccountsTableCard({ accounts }: Props) {
                             </Link>
                           </DropdownMenuItem> */}
                           <DropdownMenuItem
-                            className="text-red-600"
+                            className="cursor-pointer text-red-600"
                             onClick={() => handleDelete(account.id)}
                             disabled={deletingId === account.id}
                           >

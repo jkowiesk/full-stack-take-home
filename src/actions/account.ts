@@ -21,5 +21,14 @@ export async function createAccount(formData: FormData) {
   revalidatePath("/");
   revalidatePath("/accounts");
 
+  return { success: true, msg: "Account created successfully." };
+}
+
+export async function deleteAccount(id: string) {
+  await api.userAccount.deleteUserAccountById({ id });
+
+  revalidatePath("/");
+  revalidatePath("/accounts");
+
   return { success: true, msg: "Account deleted successfully." };
 }

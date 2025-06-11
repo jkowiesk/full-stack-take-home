@@ -151,13 +151,16 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="h-8 w-8 p-0">
+                      <Button
+                        variant="ghost"
+                        className="h-8 w-8 cursor-pointer p-0"
+                      >
                         <MoreHorizontal className="h-4 w-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem
-                        className="text-red-600 hover:!text-red-600"
+                        className="cursor-pointer text-red-600 hover:!text-red-600"
                         onClick={() => document.id && handleDelete(document.id)}
                       >
                         <Trash2 className="mr-2 h-4 w-4" />
@@ -166,7 +169,7 @@ export default function DocumentsCard({ accountId, accountName }: Props) {
                       <DocumentViewer documentId={document.id}>
                         <Button
                           variant="ghost"
-                          className="w-full justify-start text-left"
+                          className="w-full cursor-pointer justify-start text-left"
                         >
                           <Search className="mr-2 h-4 w-4" />
                           View

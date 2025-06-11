@@ -185,30 +185,31 @@ export function WorkflowPage() {
 
   return (
     <>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            onClick={runWorkflow}
-            disabled={!canRunWorkflow}
-            size="sm"
-            className="absolute top-2 -right-24 grid h-16 w-16 cursor-pointer place-items-center"
-          >
-            {isProcessing ? (
-              <Loader2 className="h-16 w-16 animate-spin" />
-            ) : (
-              <Play className="h-16 w-16" />
-            )}
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>
-            Compare vehicle policies between selected documents and identify
-            differences
-          </p>
-        </TooltipContent>
-      </Tooltip>
       <div className="space-y-6">
         {/* Account Context Info */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              onClick={runWorkflow}
+              disabled={!canRunWorkflow}
+              size="sm"
+              className="relative h-8 w-full cursor-pointer 2xl:absolute 2xl:top-2 2xl:-right-24 2xl:grid 2xl:h-16 2xl:w-16 2xl:place-items-center"
+            >
+              {isProcessing ? (
+                <Loader2 className="h-16 w-16 animate-spin" />
+              ) : (
+                <Play className="h-16 w-16" />
+              )}
+              <span className="2xl:hidden">Run Policy Comparison Workflow</span>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>
+              Compare vehicle policies between selected documents and identify
+              differences
+            </p>
+          </TooltipContent>
+        </Tooltip>
         <AccountsCard
           accounts={allAccounts}
           currentAccount={selectedAccount}
@@ -343,18 +344,14 @@ export function WorkflowPage() {
                   // Actual Content
                   <>
                     {/* Summary Section */}
-                    <div>
-                      <h3 className="mb-2 text-lg font-semibold">Summary</h3>
-                      <p className="text-sm text-gray-700">
-                        {workflowResult?.summary}
-                      </p>
-                    </div>
-
-                    {/* Vehicle Details Table */}
-                    <div>
-                      <h3 className="mb-4 text-lg font-semibold">
+                    <div className="flex flex-col gap-4">
+                      <h3 className="text-lg font-semibold">
                         Vehicle Details Comparison
                       </h3>
+                      <p className="text-sm">
+                        <span className="text-foreground/50">Summary: </span>
+                        {workflowResult?.summary}
+                      </p>
                       <div className="overflow-x-auto">
                         <Table>
                           <TableHeader>
